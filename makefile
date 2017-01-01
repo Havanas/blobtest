@@ -1,6 +1,6 @@
 CC=g++
 CROSS = arm-none-linux-gnueabi-gcc 
-CFLAGS= -c
+CFLAGS= -std=gnu++11
 OPENCVFLAGS= `pkg-config --cflags --libs opencv`
 OPENCVCFLAGS= `pkg-config --cflags opencv`
 OPENCVLIBS= `pkg-config --libs opencv`
@@ -16,9 +16,8 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(OPENCVCFLAGS) -o $@ $(OPENCVLIBS) $(THREADFLAGS)
 
 %.o: %.cpp
-	$(CC) $(OPENCVCFLAGS) -c  $< $(THREADFLAGS)
+	$(CC) $(CFLAGS) $(OPENCVCFLAGS) -c  $< $(THREADFLAGS)
 	
 clean: 
-	mkdir -p out
-
+	rm $(OBJECTS) $(EXECUTABLE)
 
